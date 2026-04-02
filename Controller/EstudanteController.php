@@ -30,7 +30,33 @@ class EstudanteController {
                 'email' => htmlspecialchars(trim($_POST['email']), ENT_QUOTES, 'UTF-8'),
                 'matricula' => htmlspecialchars(trim($_POST['matricula']), ENT_QUOTES, 'UTF-8')
             ];
+
+            //VALIDANDO 
+            //IMPEDIR QUE CAMPOS VAZIOS CHEGUEM NO BANCO
+            if (empty($dados['nome']) || empty($dados['email'])){
+
+                header("Location: index.php?status=erro&msg=Preencha todos os campos!");
+                exit;
+            }
+            //PERSISTÊNCIA DE DADOS: SALVAR INFORMAÇÕES NO BD E 
+            //GUARDÁ-LOS MESMO QUE HAJA UM ENCERRAMENTO DO PROGRAMA OU DESLIGAMENTO DO SISTEMA
+            
+            //Chamar o Model para salvar dados limpos
+            if ($this->estudante->salvar($dados)){
+                //Redirecione o status de sucesso
+                header("Location: index.php?status=sucesso");
+                exit;
+                
+            } else {
+                header("Location: index.php?status=erro&sg=Erro ao salvar");
+                exit;
+            }
+        
         }
+    }
+
+    public function criar(){
+        require_once './View/cadastro.php';
     }
   
 }
