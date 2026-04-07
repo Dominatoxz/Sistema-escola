@@ -8,7 +8,7 @@
 <body>
     <h1>Alunos Matrícula</h1>
     <p><a href="index.php?action=novo"> + Cadastrar Novo Aluno</a></p>
-    <table border="1" style="border: 10px solid #831d1c;">
+    <table border="1" style="border: 4px solid blue;">
         <thead>
             <tr>
                 <th>Nome</th>

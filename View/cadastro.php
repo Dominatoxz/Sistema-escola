@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Novo Aluno</h1>
-    <form method="post" action="index.php">
+    <form method="post" action="novo">
         <p>
             <label>Nome:</label>
             <input type="text" name="nome" required>
@@ -18,7 +18,7 @@
         </p>
         <p>
             <label>Matrícula:</label>
-            <input type="text" name="matriucla" required>
+            <input type="text" name="matricula" required>
         </p>
 
         <button type="submit">Salvar Aluno</button>

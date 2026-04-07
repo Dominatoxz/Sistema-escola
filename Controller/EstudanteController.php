@@ -1,5 +1,7 @@
 <?php
 require_once './Model/Estudante.php';
+require_once './config/Database.php';
+
 class EstudanteController {
     private $db;
     private $estudante;
@@ -19,7 +21,7 @@ class EstudanteController {
         //pede lista de dados ao Model
         $alunos = $this->estudante->buscarTodos();
 
-        require_once 'index.php';
+        require_once './View/lista.php';
     } 
 
     public function salvar() {
@@ -57,6 +59,32 @@ class EstudanteController {
 
     public function criar(){
         require_once './View/cadastro.php';
+    }
+
+    public function editar($id){
+        $aluno = $this->estudante->buscarPorId($id);
+        if ($aluno) {
+            require_once './View/editar.php';
+        } else {
+            header("Location: index.php?status=erro&msg=Aluno não encontrado");
+        }
+    }
+
+    public function atualizarDados() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dados = [
+                'id' => (int)$_POST['id'],
+                'nome' => htmlspecialchars(trim($_POST['nome']), ENT_QUOTES, 'UTF-8'),
+                'email' => htmlspecialchars(trim($_POST['email']), ENT_QUOTES, 'UTF-8'),
+                'matricula' => htmlspecialchars(trim($_POST['matricula']), ENT_QUOTES, 'UTF-8')
+            ];
+        }
+    }
+
+    public function deletar($id) {
+        if ($this->estudante->deletar($id)){
+            header("Location: index.php?status=sucesso&msg=Excluído!");
+        }
     }
   
 }
